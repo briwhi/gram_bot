@@ -35,16 +35,21 @@ class InstaFollower:
         followers_button = self.driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/header/section/ul/li[2]/a')
         followers_button.click()
         time.sleep(1)
-        follower_links = self.driver.find_elements_by_css_selector("button.sqdOP")
-        for link in follower_links:
-            link.click()
+        modal = self.driver.find_element_by_xpath('/html/body/div[5]/div/div/div[2]')
+        for i in range(1000):
+            self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", modal)
+            time.sleep(.5)
 
     def follow(self):
-        pass
+        follows = self.driver.find_elements_by_css_selector("button.sqdOP")
+        for follow in follows:
+            follow.click()
+            time.sleep(.5)
+
 
 
 insta = InstaFollower()
 insta.login()
 insta.find_followers()
-# insta.follow()
+insta.follow()
 
